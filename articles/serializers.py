@@ -80,10 +80,6 @@ class ReviewCreateSerializer(serializers.ModelSerializer):
 
 class WishListSerializer(serializers.ModelSerializer):
     writer = serializers.ReadOnlyField(source="writer.username")
-    product = serializers.SerializerMethodField()
-
-    def get_product(self, obj):
-        return obj.product.product
 
     class Meta:
         model = Product

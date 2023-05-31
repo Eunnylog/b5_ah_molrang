@@ -14,7 +14,7 @@ class Product(models.Model):
     created_at = models.DateTimeField("생성 시간", auto_now_add=True)
     updated_at = models.DateTimeField("수정 시간", auto_now=True)
     wishes = models.ManyToManyField(
-        User, related_name='wishes', null=True, blank=True)
+        User, related_name='wishes', blank=True)
 
     def __str__(self):
         return str(self.product)
