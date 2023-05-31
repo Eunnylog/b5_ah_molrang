@@ -48,7 +48,6 @@ class ReviewSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
     writer = serializers.SerializerMethodField()
-    product = serializers.SerializerMethodField()
 
     def get_created_at(self, obj):
         return obj.created_at.strftime("%Y년 %m월 %d일 %p %I:%M")
@@ -58,9 +57,6 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     def get_writer(self, obj):
         return obj.writer.username
-
-    def get_product(self, obj):
-        return obj.product.product
 
     class Meta:
         model = Review
@@ -84,6 +80,10 @@ class ReviewCreateSerializer(serializers.ModelSerializer):
 
 class WishListSerializer(serializers.ModelSerializer):
     writer = serializers.ReadOnlyField(source="writer.username")
+    product = serializers.SerializerMethodField()
+
+    def get_product(self, obj):
+        return obj.product.product
 
     class Meta:
         model = Product
