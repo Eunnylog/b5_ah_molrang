@@ -1,79 +1,124 @@
-# b5_ah_molrang
+<img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=header&text=아몰약💊쇼핑몰&fontSize=90" />
 
-동현: 소셜로그인 기능 구현을 위해선 아래와 같은 절차를 따라주세요.
-<br/>
-<br/>
-[공통]
-<br/>
-소셜로그인 기능을 구현하기 위해서 pip install django-allauth 가 되어있어야 합니다.
-<br/>
-<br/>
-[카카오로그인]
-<br/>
-1. https://developers.kakao.com/ 방문
-<br/>
-2. 회원가입
-<br/>
-3. 내 애플리케이션 > 애플리케이션 추가하기 > 로고, 앱이름, 사업자명 임의로 작성, 정책위반아님 체크
-<br/>
-4. 생성된 애플리케이션 클릭 > REST API 키 복사해서 아무데나 메모장에 잘 적어놓기
-<br/>
-5. 왼쪽 카테고리 중 보안 > Client Secret 코드생성 > 생성된 코드 복사해서 아까 REST API 키와 함께 메모장에 잘 적어놓기 > 활성화 클릭
-<br/>
-6. 왼쪽 카테고리 중 카카오 로그인 > 상태 ON
-<br/>
-7. 같은 화면의 하단에 Redirect URI 등록 클릭 > 줄바꿈 가능하니 다음과 같은 url 두 줄 입력
-<br/>
-http://127.0.0.1:8000/accounts/kakao/login/callback/
-<br/>
-http://127.0.0.1:8000
-<br/>
-8. 왼쪽 카테고리 중 동의항목 > 사용자로부터 받을 개인정보 (닉네임 있으면 필수동의, 이메일 있으면 선택동의) 설정을 필요에 맞게 설정
-<br/>
-9. 수퍼유저생성 및 런서버 된 상태에서 브라우저에서 http://127.0.0.1:8000/admin/ 접속
-<br/>
-10. 소셜계정 카테고리 중 소셜 어플리케이션 > 우측 상단 소셜 어플리케이션 추가 버튼 > 제공자 카카오 > 이름 카카오로그인
-<br/>
-11. 클라이언트 아이디: 아까 적어 둔 REST API 키 , 비밀 키: 아까 적어 둔 Client Secret 코드
-<br/>
-12. 마지막으로 Sites: 목록에 뜬 url들 중 http://127.0.0.1:8000 이것과 http://127.0.0.1:8000/accounts/kakao/login/callback/ 이것을 선택해서 오른쪽으로 옮기면 카카오 로그인을 위한 준비작업 끝.
-<br/>
-**백엔드 연결포트가 8000번이 아니거나 배포를 위한 도메인이 따로 있을 경우, 위에서 언급된 http://127.0.0.1:8000 들의 경로를 상황에 맞게 수정합니다.
-<br/>
-<br/>
-[구글로그인]
-<br/>
-1.https://console.developers.google.com/ 접속 > 로그인 및 약관 동의
-<br/>
-2.탑 배너의 GoogleAPIs로고 오른쪽에 있는 프로젝트 선택 클릭 > 팝업에서 새 프로젝트 > 프로젝트 이름 임의로 설정 > 만들기
-<br/>
-3.프로젝트 생성까지 시간이 좀 걸림 > 생성되면 똑같이 탑배너에서 프로젝트 선택하여 생성한 프로젝트로 이동
-<br/>
-4.화면 좌측 상단 모서리에 삼선 아이콘 클릭 > API 및 서비스 > 사용자 인증 정보 > 동의 화면 구성 (닉네임 필수동의, 이메일 선택동의 + 카카오로부터 제공받기) > 외부 > 만들기
-<br/>
-5.애플리케이션이름 임의로 설정 > 동의항목 문의용 이메일 입력(개발자 이메일) > 하단에 한 번 더 이메일 입력 > 저장
-<br/>
-**그외 빨간 별표 있는 항목 모두 기입
-<br/>
-6.몇 단계 더 있는듯 보이나 할 필요 없고 OAuth 동의 완성 됨
-<br/>
-7.다시 사용자 인증정보 카테고리로 이동 > OAuth 2.0 클라이언트 ID 만들것임. 상단에 사용자 인증 정보 만들기 > OAuth 클라이언트 ID
-<br/>
-8.애플리케이션유형 > 웹 애플리케이션 > 이름 임의로 설정 > 승인된 자바스크립트 URI에 http://127.0.0.1:8000 추가
-<br/>
-9.승인된 리디렉션 URI에 http://127.0.0.1:8000 추가, http://127.0.0.1:8000/accounts/google/login/callback/ 추가.
-<br/>
-10.팝업창에서 생성된 클라이언트 ID와 클라이언트 보안 비밀번호를 메모장에 잘 적어둔다.
-<br/>
-11.수퍼유저생성 및 런서버 된 상태에서 브라우저에서 http://127.0.0.1:8000/admin/ 접속
-<br/>
-12.소셜계정 카테고리 중 소셜 어플리케이션 > 우측 상단 소셜 어플리케이션 추가 버튼 > 제공자 google > 이름 구글로그인
-<br/>
-13.클라이언트 아이디: 아까 적어 둔 클라이언트 ID, 비밀 키: 아까 적어 둔 클라이언트 보안 비밀번호 기입.
-<br/>
-14.마지막으로 Sites: 목록에 뜬 url들 중 http://127.0.0.1:8000 이것과 http://127.0.0.1:8000/accounts/google/login/callback/ 이것을 선택해서 오른쪽으로 옮기면 구글 로그인을 위한 준비작업 끝.
-<br/>
-**백엔드 연결포트가 8000번이 아니거나 배포를 위한 도메인이 따로 있을 경우, 위에서 언급된 http://127.0.0.1:8000 들의 경로를 상황에 맞게 수정합니다.
-<br/>
-프론트와 서버를 연결할 때 우회해서 갈 수 있도록 CORS를 넣었습니다. 실행하시기전에 pip install django-cors-headers
-해주세욥 ~현재
+## 🖐️프로젝트 설명
+무릎까지 내려온 다크서클에~ 아무리 잠을 자도 소용없고~ 찌뿌둥한 내 몸!<br>
+그대 어깨에 뭉친 만성피로를 저희 아몰약 쇼핑몰이 퇴치해드릴게요!<br>
+내 몸에 딱 맞는 비타민들을 쏙쏙 찾아드립니다!<br>
+초보 사장님도 상품 등록을 척척!<br>
+초보 손님들도 상품 구매를 쓩쓩!<br>
+
+<br><br>
+
+## 🌈스크린샷
+회원가입 화면 ▼<br><br>
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAFFhV%2FbtshCgkVFt1%2Ffd8Q5R0Jkt9zQyKK51W1nk%2Fimg.png"><br>
+로그인 화면 ▼<br><br>
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FBdfLc%2FbtshBl7RAJn%2Fd3SlkiMq5kNPLBwqk3wFR0%2Fimg.png"><br>
+회원탈퇴 화면 ▼<br><br>
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FwRrmx%2FbtshCgrGQ6N%2FkI6npaK6PjVlkSmKfTiTc0%2Fimg.png"><br>
+상품 등록 화면 ▼<br><br>
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F0Tug1%2Fbtshy8PnaQP%2FD3OP5iYUDlTuipbCkRQBD1%2Fimg.png"><br>
+<br><br>상품 목록 화면 ▼<br><br>
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb1xS2z%2FbtshChRHF33%2FAEOBfPUKfC3Hl1Nf69ZAK1%2Fimg.png"><br>
+<br><br>상품 상세 화면 ▼<br><br>
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fc97iAI%2FbtshCdV1zWJ%2FHDJb17O0firBQNQoc8rnX1%2Fimg.png"><br>
+<br><br>상품 리뷰 화면 ▼<br><br>
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FkT1Ia%2FbtshAwhD4AD%2FXD2KkqIygGF9L8TjJZhcZk%2Fimg.png"><br>
+내 장바구니 화면 ▼<br><br>
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbVe504%2FbtshChjPKiu%2FvpkxK1EnyPyykkXKDBVQG1%2Fimg.png"><br>
+마이페이지 화면 ▼<br><br>
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcDWEhP%2FbtshG80Yqo2%2FyZfOwg3eIDKaRUNLxrxz31%2Fimg.png"><br>
+
+<br><br>
+
+## 기능 구현 목록
+1. 회원
+- 회원가입 / 회원탈퇴 / 로그인
+- 소셜로그인 미구현
+
+2. 장바구니
+- 상품이미지 / 제목 / 가격 목록 확인
+- 장바구니 내 원하는 대로 자유롭게 선택한 상품들의 가격 합계 제공
+- 장바구니 내 상품의 해제/제거 가능
+
+3. 찜
+- 토글 형식으로 선택 상품에 대한 찜과 찜 해제 제공
+- 마이페이지에서 내가 찜한 목록 확인 가능
+
+4. 리뷰와 리뷰에 대한 댓글
+- 선택 상품에 소비자가 리뷰를 남길 수 있는 기능
+- 5점 만점의 별점 부여
+
+5. 상품
+- 상품 등록 기능 : 상품명 / 가격 / 총재고수량 / 상품이미지 / 상품 설명글 작성
+- 웹사이트 입장 시 처음 액세스되는 메인페이지에서 등록된 모든 상품의 최신순 정렬된 목록 및 품절 유무를 확인
+- 개별 상품의 썸네일 클릭 시 상품 상세 페이지 조회
+- 상품 상세페이지에서 찜하기 기능 구동 및 현재 상품에 달린 리뷰 확인 가능
+
+6. 마이페이지
+- 그동안 내가 등록한 상품들의 목록 확인 가능
+- 내가 찜한 상품들의 목록 확인 가능
+- 내가 작성한 리뷰들의 목록 확인 가능
+
+<br><br>
+
+## 🔧사용된 스택
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"><img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"><img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"><img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white"><img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"><img src="https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white"><img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"><img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+
+<br><br>
+
+## 🏗️설치 및 준비 (**미배포 상태에서 직접 설치 후 구동해보기 위한 방법)
+1. 저희 프로젝트의 백엔드 폴더와 프론트 폴더를 클론해 주세요. 백엔드: b5_ah_molrang, 프론트엔드: b5_ah_molrang_front <br>
+```python
+  git clone https://github.com/banghyunjae/b5_ah_molrang.git
+  git clone https://github.com/banghyunjae/b5_ah_molrang_front.git
+```
+2. 가상환경을 설치 및 활성화 <br>
+```python
+  #window os
+  python -m venv venv
+  source venv/Scripts/activate
+  #mac os
+  python3 -m venv venv
+  source venv/bin/activate
+  
+```
+3. 가상환경 안에 requirements.txt를 설치 <br>
+```python
+  pip install -r requirements.txt
+```
+4. 루트폴더에 secret.json 파일을 만든 후, 저희팀 담당자의 깃허브나 이메일로 연락하여<br>장고 구동을 위한 시크릿키를 건네받아 적어 넣으세요. <br>
+<br><br>
+5. 이미지 업로드 구현을 위해 필로우 패키지를 설치합니다. <br>
+```
+  python -m pip install Pillow
+```
+6. 장고에 연결된 DB 작동을 위해 마이그레이션을 만들어주세요.
+```
+  python manage.py makemigrations
+```
+7. 장고에 연결된 DB 작동을 위해 마이그레이트 해주세요.
+```
+  python manage.py migrate
+```
+8. 백엔드 서버를 127.0.0.1:8000 포트로 작동시켜 주세요.
+```
+  python manage.py runserver
+```
+9. 백엔드 서버가 작동하는 동안 프론트엔드 서버는 127.0.0.1:5500 포트로 작동시켜 주세요. <br> Visual Studio Code의 라이브서버 확장팩을 써도 됩니다. <br>
+<br><br>
+10. 모든 준비가 완료되었습니다. 프론트엔드 서버로 접속해서 구동을 시험해주세요.
+
+<br><br><br>
+
+## 팀 깃허브
+**🥗최예지: https://github.com/choiyeji2022**<br>
+**🌯방현재: https://github.com/banghyunjae**<br>
+**🥙김정은: https://github.com/Eunnylog**<br>
+**🌮이미진: https://github.com/mijinleee**<br>
+**🥪이동현: https://github.com/OCmonet**<br>
+
+<br>
+
+**감사합니다.**
+🥰😘😊😀🫡

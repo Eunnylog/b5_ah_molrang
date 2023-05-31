@@ -98,6 +98,7 @@ class WishListSerializer(serializers.ModelSerializer):
 
 class ReviewListSerializer(serializers.ModelSerializer):
     writer = serializers.ReadOnlyField(source='writer.username')
+    product = serializers.ReadOnlyField(source='product.product')
 
     class Meta:
         model = Review

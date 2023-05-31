@@ -30,7 +30,7 @@ class CartItem(models.Model):
         Cart, on_delete=models.CASCADE, related_name='cart_items'
     )
     product = models.ForeignKey(
-        Product, on_delete=models.CASCADE)  # 장바구니에 담긴 상품을 나타냄
+        Product, on_delete=models.CASCADE, default=None)  # 장바구니에 담긴 상품을 나타냄
     quantity = models.PositiveIntegerField(default=1)  # 상품의 수량을 저장함, 기본값 1
     is_selected = models.BooleanField(
         default=False)  # 상품의 선택 여부를 나타내는 필드 기본값 False

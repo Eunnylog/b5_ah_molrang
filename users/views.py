@@ -29,16 +29,16 @@ class UserDetailView(APIView):
     def get(self, request):
         return Response(UserSerializer(request.user).data)
 
-    def put(self, request):
+    def patch(self, request):
         """ 회원 정보를 수정합니다. """
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer = UserSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response({"massage":"수정완료"}, status= status.HTTP_201_CREATED)
+        user = User.objects.get(email=request.user)
+        serializer = UserSerializer(
+            user, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response({'message': '수정완료 ^ㅇ^'}, status=status.HTTP_200_OK)
         else:
-            return Response({"message":f"${serializer.errors}"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': f"${serializer.errors}"}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request):
         """ 회원 탈퇴 기능입니다. """
